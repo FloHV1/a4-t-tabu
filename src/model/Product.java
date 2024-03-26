@@ -1,4 +1,4 @@
-package Products;
+package model;
 
 public class Product {
     protected String _sku;

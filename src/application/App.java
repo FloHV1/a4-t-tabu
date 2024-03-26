@@ -1,13 +1,12 @@
-package App;
+package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Inventory.InventoryManager;
-import Inventory.Exceptions.invalidValuesException;
-import Inventory.Exceptions.outOfStockException;
-import Products.Product;
+import model.*;
+
+
 
 /**
  * The main class that runs the application

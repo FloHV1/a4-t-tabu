@@ -1,4 +1,4 @@
-package Products;
+package model;
 
 public abstract class DigitalProducts extends Product {
     protected String _team;
