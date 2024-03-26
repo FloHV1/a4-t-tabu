@@ -1,0 +1,1 @@
+Save your planning documents (UML diagrams, flowcharts, etc) in this folder
