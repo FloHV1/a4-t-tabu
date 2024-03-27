@@ -34,7 +34,7 @@
 2000000005;Minecraft;63.18;Mojang Studios
 6147356663;Edge-matching puzzle;6.28;12;2500
 9138814396;Titan, Game Reboot;65.95;13;2
-3000000025;God of War Ragnarök;65.56;Sony Interactive Entertainment
+3000000025;God of War Ragnarï¿½k;65.56;Sony Interactive Entertainment
 8987410474;Bookchase, Game Mach;97.72;9;2
 6678014194;Stick puzzle;295.52;11;2500
 3000000022;Metal Gear Rising: Revengeance;31.03;Konami
@@ -198,7 +198,7 @@
 3000000044;Resident Evil 2;52.89;Capcom
 2000000001;Hades;64.96;Supergiant Games
 6445676597;Sliding puzzle;42.05;4;500
-2000000020;Pokémon Legends: Arceus;61.42;Nintendo
+2000000020;Pokï¿½mon Legends: Arceus;61.42;Nintendo
 4599428616;Back from the klondike;29.29;7;500
 1024162826;Japanese traditional dolls, Game Demon;139.99;12;H
 3000000049;The Last of Us Part II;95.26;Naughty Dog

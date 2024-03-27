@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import controller.InventoryManager;
+import controller.exceptions.Exceptions.*;
 import model.*;
 
 
