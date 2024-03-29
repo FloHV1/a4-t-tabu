@@ -1,17 +1,28 @@
 package controller;
 
-import model.*;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.swing.text.html.ListView;
 
 import controller.exceptions.Exceptions.invalidValuesException;
 import controller.exceptions.Exceptions.notPhysicalProductException;
 import controller.exceptions.Exceptions.outOfStockException;
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import model.BoardGame;
+import model.DigitalProducts;
+import model.Figure;
+import model.PhysicalProducts;
+import model.Product;
+import model.Puzzle;
+import model.VideoGame;
 
 /**
  * This class implements the Interface interface and manages the inventory of
@@ -20,11 +31,49 @@ import java.io.BufferedReader;
  * stock, adding new products,
  * removing products, and reading/writing products from/to a file.
  */
-public class InventoryManager implements Interface {
+public class InventoryController implements Interface {
+
+    /*
+     * Home tab
+     */
+
+    @FXML
+    private Label labelSearchInventory;
+    @FXML
+    private Label labelWelcome;
+    @FXML
+    private ListView<Toy> listViewResults;
+    @FXML
+    private TextField txtFieldKeyword;
+    @FXML
+    private Label lblKeywordSearch;
+    @FXML
+    private Button btnSearch;
+    @FXML
+    private Button btnClear;
+    @FXML
+    private Button btnBuy;
+    @FXML
+    private Label labelAddStock;
+    @FXML
+    private Label lblSKU;
+    @FXML
+    private TextField txtFieldSKU;
+    @FXML
+    private RadioButton radioSearch;
+    @FXML
+    private RadioButton radioStock;
+    @FXML
+    private Button btnAddStock;
+    @FXML
+    private Label lblQuantity;
+    @FXML
+    private TextField txtFldQuantity;
+
 
     private ArrayList<Product> _productList;
 
-    public InventoryManager() {
+    public InventoryController() {
         _productList = new ArrayList<Product>();
     }
 

@@ -1,13 +1,13 @@
-package application;
+package view;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import controller.InventoryManager;
-import controller.exceptions.Exceptions.*;
-import model.*;
-
+import controller.InventoryController;
+import controller.exceptions.Exceptions.invalidValuesException;
+import controller.exceptions.Exceptions.outOfStockException;
+import model.Product;
 
 
 /**
@@ -24,7 +24,7 @@ public class App {
         final String FILE_PATH = strWorkingFolder + DATAFOLDER;
 
         Scanner keyboard = new Scanner(System.in);
-        InventoryManager inventory = new InventoryManager();
+        InventoryController inventory = new InventoryController();
         int option = 0;
 
         ArrayList<Product> inventoryList = inventory.readProductsFromFile(DATAFOLDER);
