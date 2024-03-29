@@ -1,37 +1,71 @@
 package view;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import controller.InventoryController;
+import controller.InventoryManager;
 import controller.exceptions.Exceptions.invalidValuesException;
 import controller.exceptions.Exceptions.outOfStockException;
-import model.Product;
-
-
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
+import javafx.stage.Stage;
 /**
  * The main class that runs the application
  * This class contains the main method and handles the user interaction with the
  * inventory management system.
  */
-public class App {
+public class App extends Application{
 
     public static void main(String[] args) throws IOException, outOfStockException, invalidValuesException {
 
-        final String DATAFOLDER = "res/toysData.txt";
+
+            if (args.length == 1 && args[0].equals("4")) {
+
+                launch(args);
+            } else {
+                System.out.println("run your code as in Assignment 3");
+            }
+        }
+    
+        @Override
+        /**
+         * This method is called when the application should stop, and provides a
+         * convenient place to prepare for application exit and destroy resources.
+         */
+        public void stop() {
+            System.out.println("this is where the save action should be initiated.");
+    
+        }
+    
+        @Override
+        public void start(Stage primaryStage) throws Exception {
+            // Load root layout from fxml file.
+            TabPane root = (TabPane) FXMLLoader.load(getClass().getResource("app.fxml"));
+    
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+    
+            primaryStage.setTitle("COMP 1502 Toy Store");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
+
+        final String DATALOADER = "res/toysData.txt";
         final String strWorkingFolder = System.getProperty("user.dir");
-        final String FILE_PATH = strWorkingFolder + DATAFOLDER;
+        final String FILE_PATH = strWorkingFolder + DATALOADER;
 
         Scanner keyboard = new Scanner(System.in);
-        InventoryController inventory = new InventoryController();
+        InventoryManager inventory = new InventoryManager();
         int option = 0;
 
-        ArrayList<Product> inventoryList = inventory.readProductsFromFile(DATAFOLDER);
+    }
 
-        System.out.println(FILE_PATH);
 
-        while (option != 4) {
+
+       /*  while (option != 4) {
             System.out.println("[1] Search Inventory and purchase toy");
             System.out.println("[2] Add New Product");
             System.out.println("[3] Remove Product");
@@ -214,6 +248,8 @@ public class App {
                     System.exit(0);
                     break;
             }
-        }
-    }
-}
+                }
+            }
+        
+
+ */

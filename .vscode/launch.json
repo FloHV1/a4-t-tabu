@@ -1,7 +1,13 @@
 {
 	"version": "0.2.0",
 	"configurations": [
-
+		{
+			"type": "java",
+			"name": "App",
+			"request": "launch",
+			"mainClass": "view.App",
+			"projectName": "a4-t-tabu_8dca938d"
+		},
 		{
 			"type": "java",
 			"name": "App",

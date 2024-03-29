@@ -46,7 +46,7 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Remove Toy">
+    <Tab fx:id="removeToyTab" text="Remove Toy">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -58,7 +58,7 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Add Toy">
+      <Tab fx:id="addToyTab" text="Add Toy">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
