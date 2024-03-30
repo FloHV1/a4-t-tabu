@@ -20,20 +20,22 @@ public class App extends Application {
 
     public static void main(String[] args) throws IOException, outOfStockException, invalidValuesException {
 
+
+        if (args.length == 1 && args[0].equals("4")) {
+            launch(args);
+        } else {
+            System.out.println("run your code as in Assignment 3");
+        }
+
         final String DATALOADER = "res/toysData.txt";
         final String strWorkingFolder = System.getProperty("user.dir");
         final String FILE_PATH = strWorkingFolder + DATALOADER;
 
         InventoryManager inventory = new InventoryManager();
         inventory.readProductsFromFile(FILE_PATH);
-
-        if (args.length == 1 && args[0].equals("4")) {
-
-            launch(args);
-        } else {
-            System.out.println("run your code as in Assignment 3");
-        }
     }
+
+    
 
     @Override
     public void start(Stage primaryStage) throws Exception {
