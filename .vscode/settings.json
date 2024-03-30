@@ -1,4 +1,14 @@
 {
+	"java.jdt.ls.java.home": "path/to/javafx-sdk",
+	"java.configuration.runtimes": [
+		{
+			"name": "JavaSE-11",
+		},
+		{
+			"path": "C:/Program Files/Java/javafx-sdk-22",
+			"default": true
+		}
+	],
 	"java.project.sourcePaths": [
 		"src"
 	],

@@ -256,7 +256,7 @@ public class InventoryController implements Initializable {
      */
 
     /**
-     * 
+     *
      * @param event
      */
     public void handleSearchAction(ActionEvent event) {
@@ -268,7 +268,7 @@ public class InventoryController implements Initializable {
         inventoryManager.searchInventory(txtFieldKeywordSearch.getText());
 
         // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(InventoryManager._productList);
+        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
         listViewResults.setItems(items);
     }
 
@@ -288,7 +288,7 @@ public class InventoryController implements Initializable {
         inventoryManager.addStock(txtFieldAddStockSKU.getText(), Integer.parseInt(txtFieldQuantity.getText()));
 
         // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(InventoryManager._productList);
+        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
         listViewResults.setItems(items);
     }
 
@@ -306,7 +306,7 @@ public class InventoryController implements Initializable {
         inventoryManager.purchaseProduct(txtFieldAddStockSKU.getText());
 
         // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(InventoryManager._productList);
+        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
         listViewResults.setItems(items);
     }
 
@@ -357,10 +357,10 @@ public class InventoryController implements Initializable {
         System.out.println(txtFieldRemoveProductSKU.getText());
 
         InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.removeProduct(txtFieldRemoveProductSKU.getText(), InventoryManager._productList);
+        inventoryManager.removeProduct(txtFieldRemoveProductSKU.getText(), inventoryManager._productList);
 
         // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(InventoryManager._productList);
+        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
         listViewResults.setItems(items);
     }
 }

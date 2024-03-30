@@ -27,7 +27,7 @@ import model.VideoGame;
  */
 public class InventoryManager implements Interface{
 
-    protected static ArrayList<Product> _productList = new ArrayList<>();
+    protected ArrayList<Product> _productList = new ArrayList<>();
 
     /**
      * This method will search the current inventory for a product that contains the
