@@ -1,6 +1,7 @@
 {
 	"version": "0.2.0",
 	"configurations": [
+		
 		{
 			"type": "java",
 			"name": "App",
@@ -15,13 +16,7 @@
 			"mainClass": "application.App",
 			"projectName": "a4-t-tabu_8dca938d"
 		},
-		{
-			"vmArgs": "--module-path \"c:/Program Files/Java/javafx-sdk-22/lib\" --add-modules javafx.controls,javafx.fxml",
-			"type": "java",
-			"name": "Launch Current File",
-			"request": "launch",
-			"mainClass": "${file}"
-		},
+		
 		{
 			"vmArgs": "--module-path \"c:/Program Files/Java/javafx-sdk-22/lib\" --add-modules javafx.controls,javafx.fxml",
 			"type": "java",
