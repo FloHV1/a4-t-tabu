@@ -6,9 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import controller.exceptions.Exceptions.invalidValuesException;
-import controller.exceptions.Exceptions.notPhysicalProductException;
-import controller.exceptions.Exceptions.outOfStockException;
+import controller.exceptions.invalidValuesException;
+import controller.exceptions.notPhysicalProductException;
+import controller.exceptions.outOfStockException;
 import model.BoardGame;
 import model.DigitalProducts;
 import model.Figure;

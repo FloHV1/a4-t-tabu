@@ -3,8 +3,8 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import controller.exceptions.Exceptions.notPhysicalProductException;
-import controller.exceptions.Exceptions.outOfStockException;
+import controller.exceptions.notPhysicalProductException;
+import controller.exceptions.outOfStockException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

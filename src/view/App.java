@@ -2,9 +2,8 @@ package view;
 
 import java.io.IOException;
 
-import controller.InventoryManager;
-import controller.exceptions.Exceptions.invalidValuesException;
-import controller.exceptions.Exceptions.outOfStockException;
+import controller.exceptions.invalidValuesException;
+import controller.exceptions.outOfStockException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,48 +20,18 @@ public class App extends Application {
     public static void main(String[] args) throws IOException, outOfStockException, invalidValuesException {
 
 
-        if (args.length == 1 && args[0].equals("4")) {
-            launch(args);
-        } else {
-            System.out.println("run your code as in Assignment 3");
-        }
-
-        final String DATALOADER = "res/toysData.txt";
-        final String strWorkingFolder = System.getProperty("user.dir");
-        final String FILE_PATH = strWorkingFolder + DATALOADER;
-
-        InventoryManager inventory = new InventoryManager();
-        inventory.readProductsFromFile(FILE_PATH);
+        launch(args);
     }
-
-    
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        // Load root layout from fxml file.
-        TabPane root = (TabPane) FXMLLoader.load(getClass().getResource("app.fxml"));
-
-        // Show the scene containing the root layout.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
+        TabPane root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-
-        primaryStage.setTitle("COMP 1502 Toy Store");
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Inventory Manager");
         primaryStage.show();
     }
-
-    @Override
-    /**
-     * This method is called when the application should stop, and provides a
-     * convenient place to prepare for application exit and destroy resources.
-     */
-    public void stop() {
-        System.out.println("this is where the save action should be initiated.");
-    }
-
-    final String DATALOADER = "res/toysData.txt";
-    final String strWorkingFolder = System.getProperty("user.dir");
-    final String FILE_PATH = strWorkingFolder + DATALOADER;
 
 }
 

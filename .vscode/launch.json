@@ -12,11 +12,18 @@
 			"type": "java",
 			"name": "App",
 			"request": "launch",
+			"mainClass": "view.App",
+			"projectName": "a4-t-tabu_8dca938d"
+		},
+		{
+			"type": "java",
+			"name": "App",
+			"request": "launch",
 			"mainClass": "application.App",
 			"projectName": "a4-t-tabu_8dca938d"
 		},
 		{
-			"vmArgs": "--module-path /Users/thoma/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2 --add-modules javafx.controls,javafx.fxml",			
+			"vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.2/lib\" --add-modules javafx.controls,javafx.fxml",
 			"type": "java",
 			"name": "Launch App",
 			"request": "launch",

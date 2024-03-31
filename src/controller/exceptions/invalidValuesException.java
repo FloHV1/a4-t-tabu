@@ -1,4 +1,4 @@
-package controller.exceptions.Exceptions;
+package controller.exceptions;
 
 
 /**

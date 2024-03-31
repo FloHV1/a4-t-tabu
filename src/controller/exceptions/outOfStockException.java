@@ -1,4 +1,4 @@
-package controller.exceptions.Exceptions;
+package controller.exceptions;
 
 /**
  * This exception is thrown when a product is out of stock.

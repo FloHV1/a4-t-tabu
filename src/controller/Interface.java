@@ -1,10 +1,12 @@
 package controller;
 
-import model.*;
-
 import java.util.ArrayList;
 
-import controller.exceptions.Exceptions.*;
+import controller.exceptions.invalidValuesException;
+import controller.exceptions.notPhysicalProductException;
+import controller.exceptions.outOfStockException;
+import model.Product;
+
 
 public interface Interface {
 
