@@ -1,25 +1,31 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import controller.exceptions.notPhysicalProductException;
-import controller.exceptions.outOfStockException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import model.BoardGame;
+import model.DigitalProducts;
+import model.Figure;
+import model.PhysicalProducts;
 import model.Product;
-
+import model.Puzzle;
+import model.VideoGame;
 
 public class InventoryController implements Initializable {
+
+    protected ArrayList<Product> _productList = new ArrayList<>();
 
     /*
      * Home tab
@@ -78,7 +84,6 @@ public class InventoryController implements Initializable {
     @FXML
     private Label lblAddStockQuantity;
 
-
     /*
      * Remove Toy tab
      */
@@ -108,8 +113,8 @@ public class InventoryController implements Initializable {
     // ChoiceBox
 
     @FXML
-    private ComboBox<String> addToyComboBox;
-    private final ObservableList<String> TOY_CATEGORY = FXCollections.observableArrayList("Animals", "Board Games",
+    private ChoiceBox<String> addToyChoiceBox;
+    private final ObservableList<String> TOY_CATEGORY = FXCollections.observableArrayList("Video Games", "Board Games",
             "Figures", "Puzzles");
 
     // Text Fields
@@ -171,7 +176,6 @@ public class InventoryController implements Initializable {
 
     @FXML
     private Label lblAddNewVideoGameTeam;
-
 
     // Methods/Functions
 
@@ -255,59 +259,89 @@ public class InventoryController implements Initializable {
      * Home tab Event Handlers
      */
 
-    /**
-     *
-     * @param event
-     */
+    @FXML
     public void handleSearchAction(ActionEvent event) {
-        System.out.println("Search by keyword...");
-        // get the text in the 'keyword' text field
-        System.out.println(txtFieldKeywordSearch.getText());
+        String keyword = txtFieldKeywordSearch.getText().toLowerCase();
+        System.out.println("Search by keyword: " + keyword);
 
-        InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.searchInventory(txtFieldKeywordSearch.getText());
+        ArrayList<Product> result = new ArrayList<>();
+        for (Product product : _productList) {
+            if (product.get_name().toLowerCase().contains(keyword) ||
+                    product.get_sku().toLowerCase().contains(keyword) ||
+                    (product instanceof VideoGame
+                            && ((VideoGame) product).get_team().toLowerCase().contains(keyword))) {
+                result.add(product);
+            }
+        }
 
-        // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
+        // Display the search results
+        ObservableList<Product> items = FXCollections.observableArrayList(result);
         listViewResults.setItems(items);
+        listViewResults.refresh(); // Refresh ListView to reflect changes
     }
 
     @FXML
     /**
-     *
-     * @param event
-     */
-    public void handleAddStockAction(ActionEvent event) throws NumberFormatException, notPhysicalProductException {
-        System.out.println("Add stock to toy...");
-        // get the text in the 'SKU' text field
-        System.out.println(txtFieldAddStockSKU.getText());
-        // get the text in the 'quantity' text field
-        System.out.println(txtFieldQuantity.getText());
-
-        InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.addStock(txtFieldAddStockSKU.getText(), Integer.parseInt(txtFieldQuantity.getText()));
-
-        // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
-        listViewResults.setItems(items);
-    }
-
-    @FXML
-    /**
+     * Handle the action of adding stock to a product.
      * 
-     * @param event
+     * @param event The ActionEvent triggering the method.
      */
-    public void handleBuyButtonAction(ActionEvent event) throws outOfStockException {
-        System.out.println("Buy toy...");
-        // get the text in the 'SKU' text field
-        System.out.println(txtFieldAddStockSKU.getText());
+    public void handleAddStockAction(ActionEvent event) {
+        String sku = txtFieldAddStockSKU.getText();
+        int quantity = Integer.parseInt(txtFieldQuantity.getText());
+        System.out.println("Add stock to product with SKU: " + sku);
 
-        InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.purchaseProduct(txtFieldAddStockSKU.getText());
+        for (Product product : _productList) {
+            if (product.get_sku().equals(sku)) {
+                if (product instanceof PhysicalProducts) {
+                    int currentStock = ((PhysicalProducts) product).get_avaliableCount();
+                    ((PhysicalProducts) product).set_avaliableCount(currentStock + quantity);
+                    System.out.println("Stock added to product: " + sku);
 
-        // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
-        listViewResults.setItems(items);
+                    // Update the ListView to reflect the changes
+                    ObservableList<Product> items = FXCollections.observableArrayList(_productList);
+                    listViewResults.setItems(items);
+                    return; // Exit the method once stock is added
+                } else {
+                    System.out.println("Cannot add stock to a non-physical product.");
+                    return; // Exit the method if the product is not physical
+                }
+            }
+        }
+
+        System.out.println("Product with SKU: " + sku + " not found.");
+    }
+
+    @FXML
+    /**
+     * Handle the action of buying a product.
+     * 
+     * @param event The ActionEvent triggering the method.
+     */
+    public void handleBuyButtonAction(ActionEvent event) {
+        String sku = txtFieldAddStockSKU.getText();
+        System.out.println("Buy product with SKU: " + sku);
+
+        for (Product product : _productList) {
+            if (product.get_sku().equals(sku)) {
+                if (product instanceof PhysicalProducts) {
+                    if (((PhysicalProducts) product).get_avaliableCount() > 0) {
+                        ((PhysicalProducts) product)
+                                .set_avaliableCount(((PhysicalProducts) product).get_avaliableCount() - 1);
+                        System.out.println("Product purchased: " + sku);
+                        break; // Exit the loop once product is purchased
+                    } else {
+                        System.out.println("Product with SKU: " + sku + " is out of stock.");
+                        return; // Exit the method if the product is out of stock
+                    }
+                } else if (product instanceof DigitalProducts) {
+                    System.out.println("Product purchased: " + sku);
+                    break; // Exit the loop once product is purchased
+                }
+            }
+        }
+
+        System.out.println("Product with SKU: " + sku + " not found.");
     }
 
     @FXML
@@ -325,22 +359,20 @@ public class InventoryController implements Initializable {
         txtFieldQuantity.setText("");
     }
 
-
     @Override
     /**
      * What is the state of this screen when it loads, what is active, and what is
      * disabled
      */
     public void initialize(URL location, ResourceBundle resources) {
-        addToyComboBox.setItems(TOY_CATEGORY);
-        addToyComboBox.getSelectionModel().selectFirst();
+        addToyChoiceBox.setItems(TOY_CATEGORY);
+        addToyChoiceBox.getSelectionModel().selectFirst();
         // disable everything related to add stock
         setHomeAddStockSetDisabled(true);
 
         // enable everything related to add stock
         setHomeSearchSetDisabled(false);
     }
-
 
     /*
      * Remove Toy tab Event Handlers
@@ -363,4 +395,59 @@ public class InventoryController implements Initializable {
         ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
         listViewResults.setItems(items);
     }
+
+    /*
+     * Add new toy tab Event Handlers
+     */
+
+    @FXML
+    /**
+     * Handle the action of adding a new product based on input from text fields.
+     * 
+     * @param event The ActionEvent triggering the method.
+     */
+    public void handleAddNewProduct(ActionEvent event) {
+        // Assuming Attributes is an array obtained from text fields
+        String[] attributes = new String[] {
+                txtFieldAddToySKU.getText(),
+                txtFieldAddToyName.getText(),
+                txtFieldAddToyPrice.getText(),
+                txtFieldAddToyAvailCount.getText(),
+                txtFieldAddFigureClass.getText() // Assuming this field is for figure class
+        };
+
+        if (attributes[0].startsWith("0") || attributes[0].startsWith("1")) {
+            Figure figure = new Figure();
+            figure.set_sku(attributes[0]);
+            figure.set_name(attributes[1]);
+            figure.set_price(attributes[2]);
+            figure.set_avaliableCount(Integer.parseInt(attributes[3]));
+            figure.set_classification(attributes[4]);
+            _productList.add(figure);
+        } else if (attributes[0].startsWith("4") || attributes[0].startsWith("5") || attributes[0].startsWith("6")) {
+            Puzzle puzzle = new Puzzle();
+            puzzle.set_sku(attributes[0]);
+            puzzle.set_name(attributes[1]);
+            puzzle.set_price(attributes[2]);
+            puzzle.set_avaliableCount(Integer.parseInt(attributes[3]));
+            puzzle.set_numPiece(Integer.parseInt(attributes[4]));
+            _productList.add(puzzle);
+        } else if (attributes[0].startsWith("7") || attributes[0].startsWith("8") || attributes[0].startsWith("9")) {
+            BoardGame boardGame = new BoardGame();
+            boardGame.set_sku(attributes[0]);
+            boardGame.set_name(attributes[1]);
+            boardGame.set_price(attributes[2]);
+            boardGame.set_avaliableCount(Integer.parseInt(attributes[3]));
+            boardGame.set_minAge(Integer.parseInt(attributes[4]));
+            _productList.add(boardGame);
+        } else if (attributes[0].startsWith("2") || attributes[0].startsWith("3")) {
+            VideoGame videoGame = new VideoGame();
+            videoGame.set_sku(attributes[0]);
+            videoGame.set_name(attributes[1]);
+            videoGame.set_price(attributes[2]);
+            videoGame.set_team(attributes[3]);
+            _productList.add(videoGame);
+        }
+    }
+
 }
