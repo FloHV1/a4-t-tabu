@@ -19,25 +19,20 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     public static void main(String[] args) throws IOException, outOfStockException, invalidValuesException {
-        
 
-                    launch(args);
-    }
-                
-
-            @Override
-            /**
-             * This method is called when the application should stop, and provides a
-             * convenient place to prepare for application exit and destroy resources.
-             */
-            public void stop() {
-                System.out.println("this is where the save action should be initiated.");
-                InventoryManager inventoryManager = new InventoryManager();
-
-                
+        final String DATALOADER = "res/toysData.txt";
+        final String strWorkingFolder = System.getProperty("user.dir");
+        final String strAbsPath = strWorkingFolder + "/" + DATALOADER;
 
 
-            }
+			InventoryManager inventoryManager = new InventoryManager();
+            inventoryManager.readProductsFromFile(DATALOADER);
+			launch(args);
+	
+	}
+
+
+            
 
             @Override
             public void start(Stage primaryStage) throws Exception {
