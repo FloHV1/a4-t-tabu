@@ -15,6 +15,7 @@ import model.Product;
 public class App extends Application {
 
     InventoryManager inventory = new InventoryManager();
+    InventoryController controller = new InventoryController();
     public static void main(String[] args) {
         launch(args);
     }
@@ -32,17 +33,14 @@ public class App extends Application {
 
         InventoryManager inventory = new InventoryManager();
         ArrayList<Product> inventoryList;
+
         try {
             inventoryList = inventory.readProductsFromFile(DATAFOLDER);
-
         } catch (IOException e) {
-            System.err.println("Error reading products from file: " + e.getMessage());
-            inventoryList = new ArrayList<>(); // Initialize an empty list
+            System.out.println("Error loading products from file: " + e.getMessage());
+            inventoryList = new ArrayList<Product>();
         }
 
-        // Pass the inventory list to the controller
-        InventoryController controller = loader.getController();
-        inventory.set_productList(inventoryList);
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(root);
