@@ -1,43 +1,48 @@
 package view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import controller.InventoryController;
 import controller.InventoryManager;
-import controller.exceptions.invalidValuesException;
-import controller.exceptions.outOfStockException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
+import model.Product;
 
-/**
- * The main class that runs the application
- * This class contains the main method and handles the user interaction with the
- * inventory management system.
- */
 public class App extends Application {
 
-    public static void main(String[] args) throws IOException, outOfStockException, invalidValuesException {
+    InventoryManager inventory = new InventoryManager();
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-        final String DATALOADER = "res/toysData.txt";
-        final String strWorkingFolder = System.getProperty("user.dir");
-        final String strAbsPath = strWorkingFolder + "/" + DATALOADER;
-
-
-			InventoryManager inventoryManager = new InventoryManager();
-            inventoryManager.readProductsFromFile(DATALOADER);
-			launch(args);
-	
-	}
-
-
-            
-
-            @Override
-            public void start(Stage primaryStage) throws Exception {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         // Load root layout from fxml file.
-        TabPane root = (TabPane) FXMLLoader.load(getClass().getResource("App.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
+        TabPane root = loader.load();
+
+        // Set up the inventory manager and load products from the file
+        final String DATAFOLDER = "res/toysData.txt";
+        final String strWorkingFolder = System.getProperty("user.dir");
+        final String FILE_PATH = strWorkingFolder + DATAFOLDER;
+
+        InventoryManager inventory = new InventoryManager();
+        ArrayList<Product> inventoryList;
+        try {
+            inventoryList = inventory.readProductsFromFile(DATAFOLDER);
+
+        } catch (IOException e) {
+            System.err.println("Error reading products from file: " + e.getMessage());
+            inventoryList = new ArrayList<>(); // Initialize an empty list
+        }
+
+        // Pass the inventory list to the controller
+        InventoryController controller = loader.getController();
+        inventory.set_productList(inventoryList);
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(root);

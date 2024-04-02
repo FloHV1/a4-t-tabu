@@ -20,7 +20,9 @@ import model.Product;
 
 public class InventoryController implements Initializable {
 
-    protected ArrayList<Product> _productList = new ArrayList<>();
+    protected static ArrayList<Product> _productList = new ArrayList<>();
+
+    
 
     /*
      * Home tab
@@ -261,9 +263,11 @@ public class InventoryController implements Initializable {
         System.out.println("Search by keyword...");
         // get the text in the 'keyword' text field
         System.out.println(txtFieldKeywordSearch.getText());
+        String keyword = txtFieldKeywordSearch.getText();
 
         InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.searchInventory(txtFieldKeywordSearch.getText());
+        inventoryManager.searchInventory(keyword);
+        System.out.println(inventoryManager._productList);
 
 
         // this is how you display that array list of toys to the user
