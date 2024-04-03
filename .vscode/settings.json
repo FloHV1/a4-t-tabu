@@ -1,14 +1,5 @@
 {
-	"java.jdt.ls.java.home": "path/to/javafx-sdk",
-	"java.configuration.runtimes": [
-		{
-			"name": "JavaSE-11",
-		},
-		{
-			"path": "C:/Program Files/Java/javafx-sdk-22",
-			"default": true
-		}
-	],
+
 	"java.project.sourcePaths": [
 		"src"
 	],
@@ -22,6 +13,14 @@
 		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.media.jar",
 		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.swing.jar",
 		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.web.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx-swt.ja"
+		"c:/Program Files/Java/javafx-sdk-22/lib/javafx-swt.ja",
+		"/Library/Java/javafx-sdk-22/lib/javafx-swt.jar",
+		"/Library/Java/javafx-sdk-22/lib/javafx.base.jar",
+		"/Library/Java/javafx-sdk-22/lib/javafx.controls.jar",
+		"/Library/Java/javafx-sdk-22/lib/javafx.fxml.jar",
+		"/Library/Java/javafx-sdk-22/lib/javafx.graphics.jar",
+		"/Library/Java/javafx-sdk-22/lib/javafx.media.jar",
+		"/Library/Java/javafx-sdk-22/lib/javafx.swing.jar",
+		"/Library/Java/javafx-sdk-22/lib/javafx.web.jar"
 	]
 }

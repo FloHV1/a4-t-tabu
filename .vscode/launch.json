@@ -6,6 +6,13 @@
 			"name": "App",
 			"request": "launch",
 			"mainClass": "view.App",
+			"projectName": "a4-t-tabu_8e868117"
+		},
+		{
+			"type": "java",
+			"name": "App",
+			"request": "launch",
+			"mainClass": "view.App",
 			"projectName": "a4-t-tabu_8dca938d"
 		},
 		{
