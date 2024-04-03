@@ -1,5 +1,8 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src",
+        "test"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": {
         "include": [
@@ -11,7 +14,8 @@
             "c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.media.jar",
             "c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.swing.jar",
             "c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.web.jar",
-            "c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx-swt.jar"
+            "c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx-swt.jar",
+            "test-lib/junit-platform-console-standalone-1.10.2.jar"
         ],
         "exclude": [
             "c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.controls.jar",
