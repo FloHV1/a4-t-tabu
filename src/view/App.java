@@ -1,71 +1,39 @@
 package view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import controller.InventoryController;
 import controller.InventoryManager;
-import controller.exceptions.Exceptions.invalidValuesException;
-import controller.exceptions.Exceptions.outOfStockException;
+import controller.exceptions.InvalidValuesException;
+import controller.exceptions.OutOfStockException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
-/**
- * The main class that runs the application
- * This class contains the main method and handles the user interaction with the
- * inventory management system.
- */
-public class App extends Application{
+import model.Product;
 
-    public static void main(String[] args) throws IOException, outOfStockException, invalidValuesException {
+public class App extends Application {
 
 
-            if (args.length == 1 && args[0].equals("4")) {
+    public static void main(String[] args) throws IOException, OutOfStockException, InvalidValuesException{
 
-                launch(args);
-            } else {
-                System.out.println("run your code as in Assignment 3");
-            }
-        }
-    
-        @Override
-        /**
-         * This method is called when the application should stop, and provides a
-         * convenient place to prepare for application exit and destroy resources.
-         */
-        public void stop() {
-            System.out.println("this is where the save action should be initiated.");
-    
-        }
-    
-        @Override
-        public void start(Stage primaryStage) throws Exception {
-            // Load root layout from fxml file.
-            TabPane root = (TabPane) FXMLLoader.load(getClass().getResource("app.fxml"));
-    
-            // Show the scene containing the root layout.
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-    
-            primaryStage.setTitle("COMP 1502 Toy Store");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        }
 
-        final String DATALOADER = "res/toysData.txt";
-        final String strWorkingFolder = System.getProperty("user.dir");
-        final String FILE_PATH = strWorkingFolder + DATALOADER;
+        final String DATAFOLDER = "res/toysData.txt";
 
         Scanner keyboard = new Scanner(System.in);
         InventoryManager inventory = new InventoryManager();
         int option = 0;
 
-    }
+        ArrayList<Product> inventoryList = inventory.readProductsFromFile(DATAFOLDER);
 
+        launch(args); // Launch the JavaFX application, commenting this line out will run the program in a3 mode 
 
+    
 
-       /*  while (option != 4) {
+        while (option != 4) {
             System.out.println("[1] Search Inventory and purchase toy");
             System.out.println("[2] Add New Product");
             System.out.println("[3] Remove Product");
@@ -210,7 +178,7 @@ public class App extends Application{
 
                         // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
                     } else if ((!productExists) && (sku.startsWith("2") || sku.startsWith("3"))) {
-                        String[] productAttributes = { sku, "name", "price", "team" };
+                        String[] productAttributes = { sku, "name", "price", "team" }; //TODO: Make an array list of the 3 common product attributes (Sku, name, price).
 
                         System.out.print("Enter Video game name: ");
                         String name = keyboard.nextLine();
@@ -248,8 +216,35 @@ public class App extends Application{
                     System.exit(0);
                     break;
             }
-                }
-            }
-        
+        }
+    }
+    
 
- */
+    // instantiate the inventory manager and controller
+    String DATAFOLDER = "res/toysData.txt";
+    InventoryManager inventory = new InventoryManager();
+    InventoryController controller = new InventoryController();
+
+    @Override
+    public void stop() throws IOException {
+        final String DATAFOLDER = "res/toysData.txt";
+
+        InventoryManager inventory = new InventoryManager();
+        inventory.writeProductsToFile(DATAFOLDER, inventory.get_productList());
+        // save the inventory to the file before closing the window
+    }
+    public void start(Stage primaryStage) throws Exception {
+        // Load root layout from fxml file.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
+        TabPane root = loader.load();
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("COMP 1502 Toy Store");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    
+}

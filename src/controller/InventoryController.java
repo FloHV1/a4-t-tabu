@@ -1,26 +1,36 @@
 package controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import controller.exceptions.Exceptions.notPhysicalProductException;
-import controller.exceptions.Exceptions.outOfStockException;
+import controller.exceptions.InvalidValuesException;
+import controller.exceptions.NotPhysicalProductException;
+import controller.exceptions.OutOfStockException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import model.Product;
 
-
 public class InventoryController implements Initializable {
 
+    private ArrayList<Product> _productList;
+
+    public void set_inventoryList(ArrayList<Product> inventoryList) {
+        this._productList = inventoryList;
+    }
+
+    public ArrayList<Product> get_inventoryList() {
+        return this._productList;
+    }
     /*
      * Home tab
      */
@@ -78,7 +88,6 @@ public class InventoryController implements Initializable {
     @FXML
     private Label lblAddStockQuantity;
 
-
     /*
      * Remove Toy tab
      */
@@ -108,8 +117,8 @@ public class InventoryController implements Initializable {
     // ChoiceBox
 
     @FXML
-    private ComboBox<String> addToyComboBox;
-    private final ObservableList<String> TOY_CATEGORY = FXCollections.observableArrayList("Animals", "Board Games",
+    private ChoiceBox<String> addToyChoiceBox;
+    private final ObservableList<String> TOY_CATEGORY = FXCollections.observableArrayList("Video Games", "Board Games",
             "Figures", "Puzzles");
 
     // Text Fields
@@ -172,8 +181,9 @@ public class InventoryController implements Initializable {
     @FXML
     private Label lblAddNewVideoGameTeam;
 
-
     // Methods/Functions
+
+    InventoryManager inventoryManager = new InventoryManager();;
 
     @FXML
     /**
@@ -255,17 +265,20 @@ public class InventoryController implements Initializable {
      * Home tab Event Handlers
      */
 
+    @FXML
     /**
-     *
-     * @param event
+     * Handle the action of searching for a product.
+     * 
+     * @param event The ActionEvent triggering the method.
      */
     public void handleSearchAction(ActionEvent event) {
         System.out.println("Search by keyword...");
         // get the text in the 'keyword' text field
         System.out.println(txtFieldKeywordSearch.getText());
+        String keyword = txtFieldKeywordSearch.getText();
 
         InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.searchInventory(txtFieldKeywordSearch.getText());
+        inventoryManager.searchInventory(keyword);
 
         // this is how you display that array list of toys to the user
         ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
@@ -274,45 +287,22 @@ public class InventoryController implements Initializable {
 
     @FXML
     /**
-     *
-     * @param event
-     */
-    public void handleAddStockAction(ActionEvent event) throws NumberFormatException, notPhysicalProductException {
-        System.out.println("Add stock to toy...");
-        // get the text in the 'SKU' text field
-        System.out.println(txtFieldAddStockSKU.getText());
-        // get the text in the 'quantity' text field
-        System.out.println(txtFieldQuantity.getText());
-
-        InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.addStock(txtFieldAddStockSKU.getText(), Integer.parseInt(txtFieldQuantity.getText()));
-
-        // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
-        listViewResults.setItems(items);
-    }
-
-    @FXML
-    /**
+     * Handle the action of buying a product.
      * 
-     * @param event
+     * @param event The ActionEvent triggering the method.
      */
-    public void handleBuyButtonAction(ActionEvent event) throws outOfStockException {
-        System.out.println("Buy toy...");
-        // get the text in the 'SKU' text field
-        System.out.println(txtFieldAddStockSKU.getText());
+    public void handleBuyButtonAction(ActionEvent event) throws OutOfStockException {
+        String sku = txtFieldAddStockSKU.getText();
+        System.out.println("Buy product with SKU: " + sku);
 
         InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.purchaseProduct(txtFieldAddStockSKU.getText());
+        inventoryManager.purchaseProduct(sku);
 
-        // this is how you display that array list of toys to the user
-        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
-        listViewResults.setItems(items);
     }
 
     @FXML
     /**
-     * 
+     * This function will clear the list view and text fields on the specified tab
      * @param event
      */
     public void handleClearButtonAction(ActionEvent event) {
@@ -325,6 +315,25 @@ public class InventoryController implements Initializable {
         txtFieldQuantity.setText("");
     }
 
+    @FXML
+    /**
+     * This function will call the InventoryManager to add stock to a Physical product
+     * @param event
+     */
+    public void handleAddStockAction(ActionEvent event) throws NumberFormatException, NotPhysicalProductException {
+        System.out.println("Add stock...");
+        // get the text in the 'SKU' text field
+        System.out.println(txtFieldAddStockSKU.getText());
+        // get the text in the 'Quantity' text field
+        System.out.println(txtFieldQuantity.getText());
+
+        InventoryManager inventoryManager = new InventoryManager();
+        inventoryManager.addStock(txtFieldAddStockSKU.getText(), Integer.parseInt(txtFieldQuantity.getText()));
+
+        // this is how you display that array list of toys to the user
+        ObservableList<Product> items = FXCollections.observableArrayList();
+        listViewResults.setItems(items);
+    }
 
     @Override
     /**
@@ -332,8 +341,8 @@ public class InventoryController implements Initializable {
      * disabled
      */
     public void initialize(URL location, ResourceBundle resources) {
-        addToyComboBox.setItems(TOY_CATEGORY);
-        addToyComboBox.getSelectionModel().selectFirst();
+        addToyChoiceBox.setItems(TOY_CATEGORY);
+        addToyChoiceBox.getSelectionModel().selectFirst();
         // disable everything related to add stock
         setHomeAddStockSetDisabled(true);
 
@@ -341,14 +350,13 @@ public class InventoryController implements Initializable {
         setHomeSearchSetDisabled(false);
     }
 
-
     /*
      * Remove Toy tab Event Handlers
      */
 
     @FXML
     /**
-     * 
+     * This function will call the InventoryManager to remove a product from the inventory
      * @param event
      */
     public void handleRemoveAction(ActionEvent event) {
@@ -363,4 +371,46 @@ public class InventoryController implements Initializable {
         ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
         listViewResults.setItems(items);
     }
+
+    /*
+     * Add new toy tab Event Handlers
+     */
+
+    @FXML
+    /**
+     * This function will call the InventoryManager to add a new product to the inventory
+     * @param event
+     */
+    public void handleSaveInvAction(ActionEvent event) throws InvalidValuesException {
+        System.out.println("Save inventory...");
+        // get the text in the 'SKU' text field
+        System.out.println(txtFieldAddToySKU.getText());
+        // get the text in the 'Name' text field
+        System.out.println(txtFieldAddToyName.getText());
+        // get the text in the 'Price' text field
+        System.out.println(txtFieldAddToyPrice.getText());
+        // get the text in the 'Available Count' text field
+        System.out.println(txtFieldAddToyAvailCount.getText());
+        // get the text in the 'Figure Class' text field
+        System.out.println(txtFieldAddFigureClass.getText());
+        // get the text in the 'Puzzle Pieces' text field
+        System.out.println(txtFieldAddPuzzlePieces.getText());
+        // get the text in the 'Board Game Min Age' text field
+        System.out.println(txtFieldAddBoardGameMinAge.getText());
+        // get the text in the 'Video Game Team' text field
+        System.out.println(txtFieldAddVideoGameTeam.getText());
+
+        InventoryManager inventoryManager = new InventoryManager();
+        inventoryManager.addNewProduct(new String[] { txtFieldAddToySKU.getText(), txtFieldAddToyName.getText(),
+                txtFieldAddToyPrice.getText(), txtFieldAddToyAvailCount.getText(), txtFieldAddFigureClass.getText(),
+                txtFieldAddPuzzlePieces.getText(), txtFieldAddBoardGameMinAge.getText(), txtFieldAddVideoGameTeam.getText(),
+                addToyChoiceBox.getValue() });
+
+                // if my code worked, i'd want this to get the values in each field and add them to the existing String array of attributes
+                // the empty fields would not be added and the array would be passed to the addNewProduct method in the InventoryManager class
+
+        // this is how you display that array list of toys to the user
+        ObservableList<Product> items = FXCollections.observableArrayList(inventoryManager._productList);
+        listViewResults.setItems(items);
+}
 }
