@@ -6,9 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import controller.exceptions.invalidValuesException;
-import controller.exceptions.notPhysicalProductException;
-import controller.exceptions.outOfStockException;
+import controller.exceptions.InvalidValuesException;
+import controller.exceptions.NotPhysicalProductException;
+import controller.exceptions.OutOfStockException;
 import model.BoardGame;
 import model.DigitalProducts;
 import model.Figure;
@@ -27,7 +27,7 @@ import model.VideoGame;
  */
 public class InventoryManager implements Interface{
 
-    ArrayList<Product> _productList = new ArrayList<>();
+    protected ArrayList<Product> _productList = new ArrayList<>();
 
     /**
      * This method will search the current inventory for a product that contains the
@@ -53,6 +53,10 @@ public class InventoryManager implements Interface{
                 }
             }
         }
+        System.out.println("Search results: ");
+        for (Product product : result) {
+            System.out.println(product);
+        }
         return result;
     }
 
@@ -65,10 +69,10 @@ public class InventoryManager implements Interface{
      * if a product is a digital product, it will return a "true" value.
      *
      * @param sku
-     * @throws outOfStockException
-     * @throws invalidValuesException
+     * @throws OutOfStockException
+     * @throws InvalidValuesException
      */
-    public boolean purchaseProduct(String sku) throws outOfStockException {
+    public boolean purchaseProduct(String sku) throws OutOfStockException {
         for (Product product : _productList) {
             if (product.get_sku() == sku) {
                 if (product instanceof PhysicalProducts) {
@@ -94,9 +98,9 @@ public class InventoryManager implements Interface{
      * @param sku
      * @param count
      *
-     * @throws notPhysicalProductException
+     * @throws NotPhysicalProductException
      */
-    public void addStock(String sku, int count) throws notPhysicalProductException {
+    public void addStock(String sku, int count) throws NotPhysicalProductException {
         for (Product product : _productList) {
             Long.parseLong(sku);
             if (product.get_sku() == sku) {
@@ -105,7 +109,7 @@ public class InventoryManager implements Interface{
                             .set_avaliableCount(((PhysicalProducts) product).get_avaliableCount() + count);
                     System.out.println(((PhysicalProducts) product).get_avaliableCount() + "items currently in stock.");
                 } else {
-                    throw new notPhysicalProductException("This product is not a physical product");
+                    throw new NotPhysicalProductException("This product is not a physical product");
                 }
             }
         }
@@ -117,9 +121,9 @@ public class InventoryManager implements Interface{
      *
      * @param product
      * 
-     * @throws invalidValuesException
+     * @throws InvalidValuesException
      */
-    public void addNewProduct(String[] Attributes) throws invalidValuesException {
+    public void addNewProduct(String[] Attributes) throws InvalidValuesException {
 
         if (Attributes[0].startsWith("0") || Attributes[0].startsWith("1")) {
             Figure figure = new Figure();

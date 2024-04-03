@@ -14,33 +14,36 @@ import model.Product;
 
 public class App extends Application {
 
+
+    public static void main(String[] args) throws Exception{
+
+
+    
+    final String DATAFOLDER = "res/toysData.txt";
+    final String strWorkingFolder = System.getProperty("user.dir");
+
+
+    // instantiate the inventory manager and controller
     InventoryManager inventory = new InventoryManager();
     InventoryController controller = new InventoryController();
-    public static void main(String[] args) {
+
+        ArrayList<Product> inventoryList = inventory.readProductsFromFile(DATAFOLDER);
         launch(args);
     }
 
+
     @Override
+    public void stop() throws IOException {
+        final String DATAFOLDER = "res/toysData.txt";
+
+        InventoryManager inventory = new InventoryManager();
+        inventory.writeProductsToFile(DATAFOLDER, inventory.get_productList());
+        // save the inventory to the file before closing the window
+    }
     public void start(Stage primaryStage) throws Exception {
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
         TabPane root = loader.load();
-
-        // Set up the inventory manager and load products from the file
-        final String DATAFOLDER = "res/toysData.txt";
-        final String strWorkingFolder = System.getProperty("user.dir");
-        final String FILE_PATH = strWorkingFolder + DATAFOLDER;
-
-        InventoryManager inventory = new InventoryManager();
-        ArrayList<Product> inventoryList;
-
-        try {
-            inventoryList = inventory.readProductsFromFile(DATAFOLDER);
-        } catch (IOException e) {
-            System.out.println("Error loading products from file: " + e.getMessage());
-            inventoryList = new ArrayList<Product>();
-        }
-
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(root);
@@ -49,4 +52,6 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    
 }
