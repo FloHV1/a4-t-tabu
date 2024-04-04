@@ -27,7 +27,7 @@ import model.VideoGame;
  */
 public class InventoryManager implements Interface{
 
-    protected ArrayList<Product> _productList = new ArrayList<>();
+    private static final ArrayList<Product> _productList = new ArrayList<>();
 
     /**
      * This method will search the current inventory for a product that contains the
@@ -278,10 +278,10 @@ public class InventoryManager implements Interface{
     }
 
     public ArrayList<Product> get_productList() {
-        return this._productList;
+        return _productList;
     }
 
-    public void set_productList(ArrayList<Product> _productList) {
-        this._productList = _productList;
-    }
+    // public void set_productList(ArrayList<Product> _productList) {
+    //     InventoryManager._productList  = _productList;
+    // }
 }

@@ -16,22 +16,20 @@ import javafx.stage.Stage;
 import model.Product;
 
 public class App extends Application {
+    public static final InventoryManager INVENTORY = new InventoryManager();
 
-
-    public static void main(String[] args) throws IOException, OutOfStockException, InvalidValuesException{
-
+    public static void main(String[] args) throws IOException, OutOfStockException, InvalidValuesException {
 
         final String DATAFOLDER = "res/toysData.txt";
 
         Scanner keyboard = new Scanner(System.in);
-        InventoryManager inventory = new InventoryManager();
         int option = 0;
 
-        ArrayList<Product> inventoryList = inventory.readProductsFromFile(DATAFOLDER);
+        // ArrayList<Product> inventoryList =
+        INVENTORY.readProductsFromFile(DATAFOLDER);
 
-        launch(args); // Launch the JavaFX application, commenting this line out will run the program in a3 mode 
-
-    
+        launch(args); // Launch the JavaFX application, commenting this line out will run the program
+                      // in a3 mode
 
         while (option != 4) {
             System.out.println("[1] Search Inventory and purchase toy");
@@ -48,7 +46,7 @@ public class App extends Application {
                     System.out.print("Enter a search term: ");
                     String keyword = keyboard.nextLine();
 
-                    ArrayList<Product> results = inventory.searchInventory(keyword);
+                    ArrayList<Product> results = INVENTORY.searchInventory(keyword);
                     int i = 1;
                     for (Product p : results) {
                         System.out.print("[" + i + "]" + " " + p);
@@ -76,7 +74,7 @@ public class App extends Application {
                         // validate selection
                     } else {
                         Product selectedProduct = results.get(selection - 1);
-                        inventory.purchaseProduct(selectedProduct.get_sku());
+                        INVENTORY.purchaseProduct(selectedProduct.get_sku());
                         System.out.println("");
 
                         // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
@@ -88,7 +86,7 @@ public class App extends Application {
                     String sku = keyboard.nextLine();
 
                     boolean productExists = false;
-                    for (Product p : inventoryList) {
+                    for (Product p : INVENTORY.get_productList()) {
                         if (p.get_sku().equals(sku)) {
                             System.out.println("Product with SKU " + sku + " already exists");
                             productExists = true;
@@ -116,7 +114,7 @@ public class App extends Application {
                         String classification = keyboard.nextLine();
                         productAttributes[4] = classification;
 
-                        inventory.addNewProduct(productAttributes);
+                        INVENTORY.addNewProduct(productAttributes);
                         System.out.println("");
                         System.out.println("Product added");
                         System.out.println("");
@@ -143,7 +141,7 @@ public class App extends Application {
                         String classification = keyboard.nextLine();
                         productAttributes[4] = classification;
 
-                        inventory.addNewProduct(productAttributes);
+                        INVENTORY.addNewProduct(productAttributes);
                         System.out.println("");
                         System.out.println("Product added");
                         System.out.println("");
@@ -171,14 +169,16 @@ public class App extends Application {
                         String classification = keyboard.nextLine();
                         productAttributes[4] = classification;
 
-                        inventory.addNewProduct(productAttributes);
+                        INVENTORY.addNewProduct(productAttributes);
                         System.out.println("");
                         System.out.println("Product added");
                         System.out.println("");
 
                         // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
                     } else if ((!productExists) && (sku.startsWith("2") || sku.startsWith("3"))) {
-                        String[] productAttributes = { sku, "name", "price", "team" }; //TODO: Make an array list of the 3 common product attributes (Sku, name, price).
+                        String[] productAttributes = { sku, "name", "price", "team" }; // TODO: Make an array list of
+                                                                                       // the 3 common product
+                                                                                       // attributes (Sku, name, price).
 
                         System.out.print("Enter Video game name: ");
                         String name = keyboard.nextLine();
@@ -193,7 +193,7 @@ public class App extends Application {
                         String team = keyboard.nextLine();
                         productAttributes[3] = team;
 
-                        inventory.addNewProduct(productAttributes);
+                        INVENTORY.addNewProduct(productAttributes);
                         System.out.println("");
                         System.out.println("Product added");
                         System.out.println("");
@@ -206,19 +206,18 @@ public class App extends Application {
                     System.out.print("Enter SKU: ");
                     String skuToRemove = keyboard.nextLine();
 
-                    inventory.removeProduct(skuToRemove, inventoryList);
+                    INVENTORY.removeProduct(skuToRemove, INVENTORY.get_productList());
 
                     break;
 
                 case 4:
-                    inventory.writeProductsToFile(DATAFOLDER, inventoryList);
+                    INVENTORY.writeProductsToFile(DATAFOLDER, INVENTORY.get_productList());
                     System.out.println("Goodbye!");
                     System.exit(0);
                     break;
             }
         }
     }
-    
 
     // instantiate the inventory manager and controller
     String DATAFOLDER = "res/toysData.txt";
@@ -229,10 +228,11 @@ public class App extends Application {
     public void stop() throws IOException {
         final String DATAFOLDER = "res/toysData.txt";
 
-        InventoryManager inventory = new InventoryManager();
+        // InventoryManager inventory = new InventoryManager();
         inventory.writeProductsToFile(DATAFOLDER, inventory.get_productList());
         // save the inventory to the file before closing the window
     }
+
     public void start(Stage primaryStage) throws Exception {
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("App.fxml"));
@@ -245,6 +245,4 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    
 }

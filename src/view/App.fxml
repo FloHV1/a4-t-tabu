@@ -50,7 +50,7 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ListView fx:id="listViewResults" layoutX="246.0" layoutY="24.0" prefHeight="394.0" prefWidth="540.0" />
+                  <ListView fx:id="listViewRemoveResults" layoutX="246.0" layoutY="24.0" prefHeight="394.0" prefWidth="540.0" />
                   <Label fx:id="labelT" layoutX="43.0" layoutY="172.0" text="Enter Toy SKU" />
                   <TextField fx:id="txtFieldRemoveProduySKU" layoutX="43.0" layoutY="208.0" prefHeight="26.0" prefWidth="171.0" />
                   <Button fx:id="btnSearch" layoutX="43.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleSearchAction" text="Search" />

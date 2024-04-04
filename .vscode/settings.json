@@ -1,26 +1,19 @@
 {
 
 	"java.project.sourcePaths": [
-		"src"
+		"src",
+
 	],
 	"java.project.outputPath": "bin",
 	"java.project.referencedLibraries": [
 		"lib/**/*.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.base.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.controls.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.fxml.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.graphics.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.media.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.swing.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx.web.jar",
-		"c:/Program Files/Java/javafx-sdk-22/lib/javafx-swt.ja",
-		"/Library/Java/javafx-sdk-22/lib/javafx-swt.jar",
-		"/Library/Java/javafx-sdk-22/lib/javafx.base.jar",
-		"/Library/Java/javafx-sdk-22/lib/javafx.controls.jar",
-		"/Library/Java/javafx-sdk-22/lib/javafx.fxml.jar",
-		"/Library/Java/javafx-sdk-22/lib/javafx.graphics.jar",
-		"/Library/Java/javafx-sdk-22/lib/javafx.media.jar",
-		"/Library/Java/javafx-sdk-22/lib/javafx.swing.jar",
-		"/Library/Java/javafx-sdk-22/lib/javafx.web.jar"
+		"c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.base.jar",
+		"c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.controls.jar",
+		"c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.fxml.jar",
+		"c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.graphics.jar",
+		"c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.media.jar",
+		"c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.swing.jar",
+		"c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx.web.jar",
+		"c:\\Users\\thoma\\javafx-sdk-21.0.2\\lib\\javafx-swt.jar"
 	]
 }
