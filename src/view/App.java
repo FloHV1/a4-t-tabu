@@ -17,6 +17,7 @@ import model.Product;
 
 public class App extends Application {
     public static final InventoryManager INVENTORY = new InventoryManager();
+    
 
     public static void main(String[] args) throws IOException, OutOfStockException, InvalidValuesException {
 
@@ -28,201 +29,201 @@ public class App extends Application {
         // ArrayList<Product> inventoryList =
         INVENTORY.readProductsFromFile(DATAFOLDER);
 
+        if (args.length == 1 && args[0].equals("4")) {
+            launch(args);
+        } else {
+            System.out.println("run your code as in Assignment 3");
 
-            if (args.length == 1 && args[0].equals("4")) {
-                launch(args);
-            } else {
-                System.out.println("run your code as in Assignment 3");
-            
-        
+            while (option != 4) {
+                System.out.println("[1] Search Inventory and purchase toy");
+                System.out.println("[2] Add New Product");
+                System.out.println("[3] Remove Product");
+                System.out.println("[4] Save & Exit \n");
+                System.out.print("Enter option: ");
+                option = keyboard.nextInt();
+                keyboard.nextLine();
+                System.out.println("");
 
-        while (option != 4) {
-            System.out.println("[1] Search Inventory and purchase toy");
-            System.out.println("[2] Add New Product");
-            System.out.println("[3] Remove Product");
-            System.out.println("[4] Save & Exit \n");
-            System.out.print("Enter option: ");
-            option = keyboard.nextInt();
-            keyboard.nextLine();
-            System.out.println("");
+                switch (option) {
+                    case 1:
+                        System.out.print("Enter a search term: ");
+                        String keyword = keyboard.nextLine();
 
-            switch (option) {
-                case 1:
-                    System.out.print("Enter a search term: ");
-                    String keyword = keyboard.nextLine();
-
-                    ArrayList<Product> results = INVENTORY.searchInventory(keyword);
-                    int i = 1;
-                    for (Product p : results) {
-                        System.out.print("[" + i + "]" + " " + p);
-                        i++;
-                    }
-
-                    if (results.size() == 0) {
-                        System.out.println("No products found \n");
-                        break;
-                    }
-
-                    System.out.println("[" + i + "] " + "Back to main menu \n");
-                    System.out.print("Enter the number of the product you want to select: ");
-
-                    int selection = keyboard.nextInt();
-                    keyboard.nextLine(); // Consume the newline character
-
-                    if (selection == i) {
-                        break;
-                        // Go back to main menu
-                    }
-
-                    if (selection < 1 || selection > results.size()) {
-                        System.out.println("Invalid selection. Please choose a number between 1 and " + results.size());
-                        // validate selection
-                    } else {
-                        Product selectedProduct = results.get(selection - 1);
-                        INVENTORY.purchaseProduct(selectedProduct.get_sku());
-                        System.out.println("");
-
-                        // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
-                        break;
-                    }
-
-                case 2:
-                    System.out.print("Enter SKU: ");
-                    String sku = keyboard.nextLine();
-
-                    boolean productExists = false;
-                    for (Product p : INVENTORY.get_productList()) {
-                        if (p.get_sku().equals(sku)) {
-                            System.out.println("Product with SKU " + sku + " already exists");
-                            productExists = true;
-                            System.exit(0);
+                        ArrayList<Product> results = INVENTORY.searchInventory(keyword);
+                        int i = 1;
+                        for (Product p : results) {
+                            System.out.print("[" + i + "]" + " " + p);
+                            i++;
                         }
-                    }
-                    if ((!productExists) && (sku.startsWith("0") || sku.startsWith("1"))) {
 
-                        String[] productAttributes = { sku, "name", "price", "count", "classification" };
+                        if (results.size() == 0) {
+                            System.out.println("No products found \n");
+                            break;
+                        }
 
-                        System.out.print("Enter figure name: ");
-                        String name = keyboard.nextLine();
-                        productAttributes[1] = name;
+                        System.out.println("[" + i + "] " + "Back to main menu \n");
+                        System.out.print("Enter the number of the product you want to select: ");
 
-                        System.out.print("Enter price: ");
-                        double price = keyboard.nextDouble();
-                        productAttributes[2] = Double.toString(price);
+                        int selection = keyboard.nextInt();
                         keyboard.nextLine(); // Consume the newline character
 
-                        System.out.print("Enter availiable count: ");
-                        int count = keyboard.nextInt();
-                        productAttributes[3] = Integer.toString(count);
+                        if (selection == i) {
+                            break;
+                            // Go back to main menu
+                        }
 
-                        System.out.print("Enter figure classification: ");
-                        String classification = keyboard.nextLine();
-                        productAttributes[4] = classification;
+                        if (selection < 1 || selection > results.size()) {
+                            System.out.println(
+                                    "Invalid selection. Please choose a number between 1 and " + results.size());
+                            // validate selection
+                        } else {
+                            Product selectedProduct = results.get(selection - 1);
+                            INVENTORY.purchaseProduct(selectedProduct.get_sku());
+                            System.out.println("");
 
-                        INVENTORY.addNewProduct(productAttributes);
-                        System.out.println("");
-                        System.out.println("Product added");
-                        System.out.println("");
+                            // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
+                            break;
+                        }
 
-                        // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
-                    } else if ((!productExists)
-                            && (sku.startsWith("4") || sku.startsWith("5") || sku.startsWith("6"))) {
-                        String[] productAttributes = { sku, "name", "price", "count", "numPieces" };
+                    case 2:
+                        System.out.print("Enter SKU: ");
+                        String sku = keyboard.nextLine();
 
-                        System.out.print("Enter Puzzle name: ");
-                        String name = keyboard.nextLine();
-                        productAttributes[1] = name;
+                        boolean productExists = false;
+                        for (Product p : INVENTORY.get_productList()) {
+                            if (p.get_sku().equals(sku)) {
+                                System.out.println("Product with SKU " + sku + " already exists");
+                                productExists = true;
+                                System.exit(0);
+                            }
+                        }
+                        if ((!productExists) && (sku.startsWith("0") || sku.startsWith("1"))) {
 
-                        System.out.print("Enter price: ");
-                        double price = keyboard.nextDouble();
-                        productAttributes[2] = Double.toString(price);
-                        keyboard.nextLine(); // Consume the newline character
+                            String[] productAttributes = { sku, "name", "price", "count", "classification" };
 
-                        System.out.print("Enter availiable count: ");
-                        String count = keyboard.nextLine();
-                        productAttributes[3] = count;
+                            System.out.print("Enter figure name: ");
+                            String name = keyboard.nextLine();
+                            productAttributes[1] = name;
 
-                        System.out.print("Enter number of pieces: ");
-                        String classification = keyboard.nextLine();
-                        productAttributes[4] = classification;
+                            System.out.print("Enter price: ");
+                            double price = keyboard.nextDouble();
+                            productAttributes[2] = Double.toString(price);
+                            keyboard.nextLine(); // Consume the newline character
 
-                        INVENTORY.addNewProduct(productAttributes);
-                        System.out.println("");
-                        System.out.println("Product added");
-                        System.out.println("");
+                            System.out.print("Enter availiable count: ");
+                            int count = keyboard.nextInt();
+                            productAttributes[3] = Integer.toString(count);
 
-                        // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
+                            System.out.print("Enter figure classification: ");
+                            String classification = keyboard.nextLine();
+                            productAttributes[4] = classification;
 
-                    } else if ((!productExists)
-                            && (sku.startsWith("7") || sku.startsWith("8") || sku.startsWith("9"))) {
-                        String[] productAttributes = { sku, "name", "price", "count", "minAge" };
+                            INVENTORY.addNewProduct(productAttributes);
+                            System.out.println("");
+                            System.out.println("Product added");
+                            System.out.println("");
 
-                        System.out.print("Enter Board Game name: ");
-                        String name = keyboard.nextLine();
-                        productAttributes[1] = name;
+                            // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
+                        } else if ((!productExists)
+                                && (sku.startsWith("4") || sku.startsWith("5") || sku.startsWith("6"))) {
+                            String[] productAttributes = { sku, "name", "price", "count", "numPieces" };
 
-                        System.out.print("Enter price: ");
-                        double price = keyboard.nextDouble();
-                        productAttributes[2] = Double.toString(price);
-                        keyboard.nextLine(); // Consume the newline character
+                            System.out.print("Enter Puzzle name: ");
+                            String name = keyboard.nextLine();
+                            productAttributes[1] = name;
 
-                        System.out.print("Enter availiable count: ");
-                        String count = keyboard.nextLine();
-                        productAttributes[3] = count;
+                            System.out.print("Enter price: ");
+                            double price = keyboard.nextDouble();
+                            productAttributes[2] = Double.toString(price);
+                            keyboard.nextLine(); // Consume the newline character
 
-                        System.out.print("Enter the minimum age: ");
-                        String classification = keyboard.nextLine();
-                        productAttributes[4] = classification;
+                            System.out.print("Enter availiable count: ");
+                            String count = keyboard.nextLine();
+                            productAttributes[3] = count;
 
-                        INVENTORY.addNewProduct(productAttributes);
-                        System.out.println("");
-                        System.out.println("Product added");
-                        System.out.println("");
+                            System.out.print("Enter number of pieces: ");
+                            String classification = keyboard.nextLine();
+                            productAttributes[4] = classification;
 
-                        // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
-                    } else if ((!productExists) && (sku.startsWith("2") || sku.startsWith("3"))) {
-                        String[] productAttributes = { sku, "name", "price", "team" }; // TODO: Make an array list of
-                                                                                       // the 3 common product
-                                                                                       // attributes (Sku, name, price).
+                            INVENTORY.addNewProduct(productAttributes);
+                            System.out.println("");
+                            System.out.println("Product added");
+                            System.out.println("");
 
-                        System.out.print("Enter Video game name: ");
-                        String name = keyboard.nextLine();
-                        productAttributes[1] = name;
+                            // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
 
-                        System.out.print("Enter price: ");
-                        double price = keyboard.nextDouble();
-                        productAttributes[2] = Double.toString(price);
-                        keyboard.nextLine(); // Consume the newline character
+                        } else if ((!productExists)
+                                && (sku.startsWith("7") || sku.startsWith("8") || sku.startsWith("9"))) {
+                            String[] productAttributes = { sku, "name", "price", "count", "minAge" };
 
-                        System.out.print("Enter team: ");
-                        String team = keyboard.nextLine();
-                        productAttributes[3] = team;
+                            System.out.print("Enter Board Game name: ");
+                            String name = keyboard.nextLine();
+                            productAttributes[1] = name;
 
-                        INVENTORY.addNewProduct(productAttributes);
-                        System.out.println("");
-                        System.out.println("Product added");
-                        System.out.println("");
+                            System.out.print("Enter price: ");
+                            double price = keyboard.nextDouble();
+                            productAttributes[2] = Double.toString(price);
+                            keyboard.nextLine(); // Consume the newline character
 
-                        // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
+                            System.out.print("Enter availiable count: ");
+                            String count = keyboard.nextLine();
+                            productAttributes[3] = count;
+
+                            System.out.print("Enter the minimum age: ");
+                            String classification = keyboard.nextLine();
+                            productAttributes[4] = classification;
+
+                            INVENTORY.addNewProduct(productAttributes);
+                            System.out.println("");
+                            System.out.println("Product added");
+                            System.out.println("");
+
+                            // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
+                        } else if ((!productExists) && (sku.startsWith("2") || sku.startsWith("3"))) {
+                            String[] productAttributes = { sku, "name", "price", "team" }; // TODO: Make an array list
+                                                                                           // of
+                                                                                           // the 3 common product
+                                                                                           // attributes (Sku, name,
+                                                                                           // price).
+
+                            System.out.print("Enter Video game name: ");
+                            String name = keyboard.nextLine();
+                            productAttributes[1] = name;
+
+                            System.out.print("Enter price: ");
+                            double price = keyboard.nextDouble();
+                            productAttributes[2] = Double.toString(price);
+                            keyboard.nextLine(); // Consume the newline character
+
+                            System.out.print("Enter team: ");
+                            String team = keyboard.nextLine();
+                            productAttributes[3] = team;
+
+                            INVENTORY.addNewProduct(productAttributes);
+                            System.out.println("");
+                            System.out.println("Product added");
+                            System.out.println("");
+
+                            // inventory.writeProductsToFile(DATAFOLDER, inventoryList);
+                            break;
+                        }
+
+                    case 3:
+                        System.out.print("Enter SKU: ");
+                        String skuToRemove = keyboard.nextLine();
+
+                        INVENTORY.removeProduct(skuToRemove, INVENTORY.get_productList());
+
                         break;
-                    }
 
-                case 3:
-                    System.out.print("Enter SKU: ");
-                    String skuToRemove = keyboard.nextLine();
-
-                    INVENTORY.removeProduct(skuToRemove, INVENTORY.get_productList());
-
-                    break;
-
-                case 4:
-                    INVENTORY.writeProductsToFile(DATAFOLDER, INVENTORY.get_productList());
-                    System.out.println("Goodbye!");
-                    System.exit(0);
-                    break;
+                    case 4:
+                        INVENTORY.writeProductsToFile(DATAFOLDER, INVENTORY.get_productList());
+                        System.out.println("Goodbye!");
+                        System.exit(0);
+                        break;
+                }
             }
         }
-    }
     }
 
     // instantiate the inventory manager and controller

@@ -17,7 +17,6 @@ import model.Product;
 import model.Puzzle;
 import model.VideoGame;
 
-
 /**
  * This class implements the Interface interface and manages the inventory of
  * products.
@@ -25,7 +24,7 @@ import model.VideoGame;
  * stock, adding new products,
  * removing products, and reading/writing products from/to a file.
  */
-public class InventoryManager implements Interface{
+public class InventoryManager implements Interface {
 
     private static final ArrayList<Product> _productList = new ArrayList<>();
 
@@ -281,6 +280,6 @@ public class InventoryManager implements Interface{
     }
 
     // public void set_productList(ArrayList<Product> _productList) {
-    //     InventoryManager._productList  = _productList;
+    // InventoryManager._productList = _productList;
     // }
 }
