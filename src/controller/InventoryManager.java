@@ -102,8 +102,8 @@ public class InventoryManager implements Interface{
      */
     public void addStock(String sku, int count) throws NotPhysicalProductException {
         for (Product product : _productList) {
-            Long.parseLong(sku);
-            if (product.get_sku() == sku) {
+
+            if (product.get_sku().equals(sku)) {
                 if (product instanceof PhysicalProducts) {
                     ((PhysicalProducts) product)
                             .set_avaliableCount(((PhysicalProducts) product).get_avaliableCount() + count);
@@ -174,7 +174,6 @@ public class InventoryManager implements Interface{
     public void removeProduct(String sku, ArrayList<Product> allProducts) {
         allProducts.removeIf(product -> product.get_sku().equals(sku));
         System.out.println("The product with the sku " + sku + " has been removed from the inventory");
-
     }
 
     /**

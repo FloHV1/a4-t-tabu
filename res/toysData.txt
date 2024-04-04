@@ -231,3 +231,6 @@
 8947640910;Exploding Kittens, Game Pixel;73.07;9;2
 6507258098;Anagram;77.30;3;500
 0412938521;Troll doll, Game Sky;90.67;3;D
+3000000000;game;123.9;dev
+7891234567;bgtest;123.45;5;5
+0123456789;figuretest;1.00;5;D

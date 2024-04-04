@@ -28,8 +28,13 @@ public class App extends Application {
         // ArrayList<Product> inventoryList =
         INVENTORY.readProductsFromFile(DATAFOLDER);
 
-        launch(args); // Launch the JavaFX application, commenting this line out will run the program
-                      // in a3 mode
+
+            if (args.length == 1 && args[0].equals("4")) {
+                launch(args);
+            } else {
+                System.out.println("run your code as in Assignment 3");
+            
+        
 
         while (option != 4) {
             System.out.println("[1] Search Inventory and purchase toy");
@@ -217,6 +222,7 @@ public class App extends Application {
                     break;
             }
         }
+    }
     }
 
     // instantiate the inventory manager and controller

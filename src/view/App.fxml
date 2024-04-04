@@ -52,13 +52,13 @@
                <children>
                   <ListView fx:id="listViewRemoveResults" layoutX="246.0" layoutY="24.0" prefHeight="394.0" prefWidth="540.0" />
                   <Label fx:id="labelT" layoutX="43.0" layoutY="172.0" text="Enter Toy SKU" />
-                  <TextField fx:id="txtFieldRemoveProduySKU" layoutX="43.0" layoutY="208.0" prefHeight="26.0" prefWidth="171.0" />
-                  <Button fx:id="btnSearch" layoutX="43.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleSearchAction" text="Search" />
+                  <TextField fx:id="txtFieldRemoveProductSKU" layoutX="43.0" layoutY="208.0" prefHeight="26.0" prefWidth="171.0" />
+                  <Button fx:id="btnRemoveSearch" layoutX="43.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleSearchRemoveAction" text="Search" />
                   <Button fx:id="btnRemove" layoutX="494.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleRemoveAction" text="Remove" />
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Add Toy">
+    <Tab text="Add Toy">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -80,20 +80,20 @@
                   <ChoiceBox fx:id="addToyChoiceBox" layoutX="119.0" layoutY="82.0" prefHeight="26.0" prefWidth="160.0" />
                   <Label fx:id="lblNewToyCategory" layoutX="20.0" layoutY="86.0" text="Category" />
                   <Label fx:id="lblSKU" layoutX="20.0" layoutY="136.0" text="SKU" />
-                  <Button fx:id="btnSaveInv" layoutX="126.0" layoutY="374.0" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="btnSaveInv" layoutX="126.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleAddToyAction" text="Save" />
                   <Label fx:id="lblPrice" layoutX="20.0" layoutY="211.0" text="Price" />
                   <Label fx:id="lblName" layoutX="20.0" layoutY="174.0" text="Name" />
                   <TextField fx:id="textFieldAddToyPrice" layoutX="119.0" layoutY="206.0" prefWidth="160.0" />
                   <TextField fx:id="textFieldAddToySKU" layoutX="119.0" layoutY="131.0" prefWidth="160.0" />
                   <TextField fx:id="textFieldAddToyName" layoutX="119.0" layoutY="169.0" prefWidth="160.0" />
-                  <TextField fx:id="textFieldaddFigureClass" layoutX="409.0" layoutY="82.0" prefHeight="26.0" prefWidth="134.0" />
+                  <TextField fx:id="textFieldAddFigureClass" layoutX="409.0" layoutY="82.0" prefHeight="26.0" prefWidth="134.0" />
                   <TextField fx:id="textFieldAddPuzzlePieces" layoutX="408.0" layoutY="332.0" prefHeight="25.0" prefWidth="136.0" />
                   <TextField fx:id="textFieldVideoGameTeam" layoutX="651.0" layoutY="332.0" prefHeight="25.0" prefWidth="136.0" />
                   <Label fx:id="lblClass" layoutX="308.0" layoutY="87.0" text="Classification" />
                   <Label fx:id="lblMinAge" layoutX="563.0" layoutY="87.0" text="Min. Age" />
                   <TextField fx:id="textFieldBoardGameMinAge" layoutX="652.0" layoutY="82.0" prefHeight="26.0" prefWidth="134.0" />
                   <Label fx:id="lblAvailCount" layoutX="14.0" layoutY="255.0" text="Avaliable-Count" />
-                  <TextField fx:id="textFieldAddToyAvailCount" disable="true" layoutX="119.0" layoutY="251.0" prefWidth="160.0" />
+                  <TextField fx:id="textFieldAddToyAvailCount" layoutX="119.0" layoutY="251.0" prefWidth="160.0" />
                   <Label fx:id="lblPuzzlePieces" layoutX="308.0" layoutY="336.0" text="Pieces" />
                   <Label fx:id="lblVideoGameTeam" layoutX="571.0" layoutY="336.0" text="Team" />
                </children></AnchorPane>
